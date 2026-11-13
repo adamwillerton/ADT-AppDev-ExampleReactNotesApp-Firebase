@@ -36,6 +36,12 @@ export default function App() {
     await deleteDoc(doc(db, 'notes', id));
   }
 
+  const filtered = useMemo(() => {
+    if (filter === 'open') return notes.filter(n => !n.done);
+    if (filter === 'done') return notes.filter(n => n.done);
+    return notes;
+  }, [notes, filter]);
+
 
   return (
     <main style={{ maxWidth: 720, margin: '2rem auto', fontFamily: 'system-ui,sans-serif' }}>
